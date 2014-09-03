@@ -32,29 +32,16 @@ public class MinderApplication extends Application {
         Date now = new Date();
         Calendar cal = Calendar.getInstance(); // locale-specific
         cal.setTime(now);
-        cal.set(Calendar.HOUR_OF_DAY, 11);
-        cal.set(Calendar.MINUTE, 53);
-        cal.set(Calendar.SECOND, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 15);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long time = cal.getTimeInMillis();
-        long oneDayInterval = 86400; //fake one day
-//        long oneDayInterval = 86400000; //one day 1000*100*60:60*24
-        if (time > now.getTime()) time += oneDayInterval;
+//        long oneDayInterval = 86400; //fake one day
+        long oneDayInterval = 86400000; //one day 1000*100*60:60*24
+        if (time < now.getTime()) time += oneDayInterval;
         Log.d("MinderApp", "startuje alarm");
         //set alarm on
         am.setRepeating(AlarmManager.RTC_WAKEUP, time , oneDayInterval , pendingIntent);
     }
-
-
-
-//    /**
-//     * TODO jeszcze nie wiem jak to zrobi� :)
-//     */
-//    public void stopRepeatingAlarm() {
-//        Intent intent = new Intent(this, TimeAlarm.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
-//                intent, PendingIntent.FLAG_CANCEL_CURRENT);
-//        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
-//        conf.setAlarmMinderState(false);
-//    }
 }
