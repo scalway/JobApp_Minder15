@@ -19,29 +19,28 @@ public class MinderApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(getBaseContext(), "startnąłem się", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "start application", Toast.LENGTH_SHORT).show();
+        Log.d("MinderApp", "start application");
         am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        setAlarm();
+        setUpBackupShedule();
     }
 
-    public void setAlarm() {
-        Intent intent = new Intent(this, TimeAlarm.class);
+    public void setUpBackupShedule() {
+        Intent intent = new Intent(this, DoSomethingImportantReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         //set  time to 15:00
         Date now = new Date();
         Calendar cal = Calendar.getInstance(); // locale-specific
         cal.setTime(now);
-        cal.set(Calendar.HOUR_OF_DAY, 15);
+        cal.set(Calendar.HOUR_OF_DAY, 19);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long time = cal.getTimeInMillis();
-//        long oneDayInterval = 86400; //fake one day
-        long oneDayInterval = 86400000; //one day 1000*100*60:60*24
-        if (time < now.getTime()) time += oneDayInterval;
-        Log.d("MinderApp", "startuje alarm");
-        //set alarm on
-        am.setRepeating(AlarmManager.RTC_WAKEUP, time , oneDayInterval , pendingIntent);
+        if (time < now.getTime()) time += AlarmManager.INTERVAL_DAY;
+        Log.d("MinderApp", "ustawiam pobieranie");
+        am.setRepeating(AlarmManager.RTC_WAKEUP, time , AlarmManager.INTERVAL_DAY , pendingIntent);
     }
 }

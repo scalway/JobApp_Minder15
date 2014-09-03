@@ -13,12 +13,12 @@ public class TimeAlarm extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		nm = (NotificationManager) context
 		.getSystemService(Context.NOTIFICATION_SERVICE);
-		CharSequence from = "Pora na spowiedź...";
-		CharSequence message = "Co porabiasz?";
+		CharSequence from = "Pobrano";
+		CharSequence message = "Plik: Ewangelia_Łukasza.mp3";
 		Intent notificationIntent = new Intent(context, MinderActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 		Notification notif = new Notification(android.R.drawable.ic_lock_idle_alarm,
-				"Co robisz cwaniaczku?", System.currentTimeMillis());
+				"posłuchaj tego ...", System.currentTimeMillis());
 		notif.setLatestEventInfo(context, from, message, contentIntent);
 	    notif.defaults |= Notification.DEFAULT_SOUND;
 		nm.notify(1, notif);
